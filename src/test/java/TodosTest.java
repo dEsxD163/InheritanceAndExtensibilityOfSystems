@@ -30,6 +30,16 @@ public class TodosTest {
     }
 
     @Test
+    public void methodMatchesInTask() {
+        Task task = new Task(1);
+
+        boolean expected = false;
+        boolean actual = task.matches("1");
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
     public void methodMatchesInMeetingTopic() {
         Meeting meeting = new Meeting(
                 555,
@@ -203,5 +213,38 @@ public class TodosTest {
         Task[] expected = {simpleTask, meeting};
         Task[] actual = todos.search("Позвонить");
         Assertions.assertArrayEquals(expected, actual);
+    }
+
+    // Тесты для геттеров
+    @Test
+    public void taskGetId() {
+        Task task = new Task(1);
+        Assertions.assertEquals(1, task.getId());
+    }
+
+    @Test
+    public void simpleTaskGetTitle() {
+        SimpleTask simpleTask = new SimpleTask(5, "Позвонить родителям");
+        Assertions.assertEquals("Позвонить родителям", simpleTask.getTitle());
+    }
+
+    @Test
+    public void epicGetSubtaskse() {
+        String[] subtasks = {"Молоко", "Яйца", "Хлеб"};
+        Epic epic = new Epic(55, subtasks);
+        Assertions.assertArrayEquals(subtasks, epic.getSubtasks());
+    }
+
+    @Test
+    public void meetingGetTopicProjectStart() {
+        Meeting meeting = new Meeting(
+                555,
+                "Выкатка 3й версии приложения",
+                "Позвонить в НетоБанка",
+                "Во вторник после обеда"
+        );
+        Assertions.assertEquals("Выкатка 3й версии приложения", meeting.getTopic());
+        Assertions.assertEquals("Позвонить в НетоБанка", meeting.getProject());
+        Assertions.assertEquals("Во вторник после обеда", meeting.getStart());
     }
 }
